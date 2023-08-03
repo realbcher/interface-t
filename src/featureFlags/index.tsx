@@ -10,12 +10,11 @@ export enum FeatureFlag {
   permit2 = 'permit2',
   fiatOnRampButtonOnSwap = 'fiat_on_ramp_button_on_swap_page',
   detailsV2 = 'details_v2',
-  uraEnabled = 'ura_enabled',
   debounceSwapQuote = 'debounce_swap_quote',
-  nativeUsdcArbitrum = 'web_usdc_arbitrum',
+  uniswapXEnabled = 'uniswapx_enabled', // enables sending dutch_limit config to routing-api
+  uniswapXSyntheticQuote = 'uniswapx_synthetic_quote',
   routingAPIPrice = 'routing_api_price',
-  walletConnectV2 = 'walletconnect_v2',
-  walletConnectFallback = 'walletconnect_fallback',
+  forceUniswapXOn = 'uniswapx_force_on', // forces routing-api's feature flag for uniswapx to turn on as well
 }
 
 interface FeatureFlagsContextType {

@@ -1,6 +1,6 @@
-import { getDeviceId, sendAnalyticsEvent, Trace, user } from '@uniswap/analytics'
 import { CustomUserProperties, getBrowser, SharedEventName } from '@uniswap/analytics-events'
 import { useWeb3React } from '@web3-react/core'
+import { getDeviceId, sendAnalyticsEvent, Trace, user } from 'analytics'
 import Loader from 'components/Icons/LoadingSpinner'
 import TopLevelModals from 'components/TopLevelModals'
 import { useFeatureFlagsIsLoaded } from 'featureFlags'
@@ -18,7 +18,6 @@ import { flexRowNoWrap } from 'theme/styles'
 import { Z_INDEX } from 'theme/zIndex'
 import { STATSIG_DUMMY_KEY } from 'tracing'
 import { getEnvName } from 'utils/env'
-import { retry } from 'utils/retry'
 import { getCurrentPageFromLocation } from 'utils/urlRoutes'
 import { getCLS, getFCP, getFID, getLCP, Metric } from 'web-vitals'
 
@@ -46,12 +45,12 @@ import Swap from './Swap'
 import { RedirectPathToSwapOnly } from './Swap/redirects'
 import Tokens from './Tokens'
 
-const TokenDetails = lazy(() => retry(() => import('./TokenDetails')))
-// const Vote = lazy(() => retry(() => import('./Vote')))
-const NftExplore = lazy(() => retry(() => import('nft/pages/explore')))
-const Collection = lazy(() => retry(() => import('nft/pages/collection')))
-const Profile = lazy(() => retry(() => import('nft/pages/profile/profile')))
-const Asset = lazy(() => retry(() => import('nft/pages/asset/Asset')))
+const TokenDetails = lazy(() => import('./TokenDetails'))
+// const Vote = lazy(() => import('./Vote'))
+const NftExplore = lazy(() => import('nft/pages/explore'))
+const Collection = lazy(() => import('nft/pages/collection'))
+const Profile = lazy(() => import('nft/pages/profile/profile'))
+const Asset = lazy(() => import('nft/pages/asset/Asset'))
 
 const BodyWrapper = styled.div`
   display: flex;

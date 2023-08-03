@@ -1,15 +1,15 @@
 import { Trans } from '@lingui/macro'
-import { Currency, CurrencyAmount, Percent, TradeType } from '@uniswap/sdk-core'
+import { ChainId, Currency, CurrencyAmount, Percent, TradeType } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
-import { SupportedChainId } from 'constants/chains'
 import useAutoSlippageTolerance from 'hooks/useAutoSlippageTolerance'
 import { useBestTrade } from 'hooks/useBestTrade'
 import tryParseCurrencyAmount from 'lib/utils/tryParseCurrencyAmount'
 import { ParsedQs } from 'qs'
-import { ReactNode, useCallback, useEffect, useMemo } from 'react'
+import { ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import { AnyAction } from 'redux'
 import { useAppDispatch } from 'state/hooks'
-import { InterfaceTrade, QuoteMethod, TradeState } from 'state/routing/types'
+import { InterfaceTrade, TradeState } from 'state/routing/types'
+import { isClassicTrade, isUniswapXTrade } from 'state/routing/utils'
 import { useUserSlippageToleranceWithDefault } from 'state/user/hooks'
 
 import { TOKEN_SHORTHANDS } from '../../constants/tokens'
@@ -71,11 +71,7 @@ const BAD_RECIPIENT_ADDRESSES: { [address: string]: true } = {
   '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D': true, // v2 router 02
 }
 
-// from the current swap inputs, compute the best trade and return it.
-export function useDerivedSwapInfo(
-  state: SwapState,
-  chainId: SupportedChainId | undefined
-): {
+export type SwapInfo = {
   currencies: { [field in Field]?: Currency | null }
   currencyBalances: { [field in Field]?: CurrencyAmount<Currency> }
   parsedAmount?: CurrencyAmount<Currency>
@@ -83,12 +79,17 @@ export function useDerivedSwapInfo(
   trade: {
     trade?: InterfaceTrade
     state: TradeState
-    method?: QuoteMethod
+    uniswapXGasUseEstimateUSD?: number
+    error?: any
   }
   allowedSlippage: Percent
   autoSlippage: Percent
-} {
+}
+
+// from the current swap inputs, compute the best trade and return it.
+export function useDerivedSwapInfo(state: SwapState, chainId: ChainId | undefined): SwapInfo {
   const { account } = useWeb3React()
+  const [previouslyInvalid, setPreviouslyInvalid] = useState(false)
 
   const {
     independentField,
@@ -114,11 +115,32 @@ export function useDerivedSwapInfo(
     [inputCurrency, isExactIn, outputCurrency, typedValue]
   )
 
-  const trade = useBestTrade(
+  let trade = useBestTrade(
     isExactIn ? TradeType.EXACT_INPUT : TradeType.EXACT_OUTPUT,
     parsedAmount,
-    (isExactIn ? outputCurrency : inputCurrency) ?? undefined
+    (isExactIn ? outputCurrency : inputCurrency) ?? undefined,
+    undefined,
+    account
   )
+
+  const nextPreviouslyInvalid = (() => {
+    if (trade.state === TradeState.INVALID) {
+      return true
+    } else if (trade.state !== TradeState.LOADING) {
+      return false
+    }
+    return undefined
+  })()
+  if (typeof nextPreviouslyInvalid === 'boolean' && nextPreviouslyInvalid !== previouslyInvalid) {
+    setPreviouslyInvalid(nextPreviouslyInvalid)
+  }
+
+  if (trade.state == TradeState.LOADING && previouslyInvalid) {
+    trade = {
+      ...trade,
+      trade: undefined,
+    }
+  }
 
   const currencyBalances = useMemo(
     () => ({
@@ -136,9 +158,18 @@ export function useDerivedSwapInfo(
     [inputCurrency, outputCurrency]
   )
 
-  // allowed slippage is either auto slippage, or custom user defined slippage if auto slippage disabled
-  const autoSlippage = useAutoSlippageTolerance(trade.trade)
-  const allowedSlippage = useUserSlippageToleranceWithDefault(autoSlippage)
+  // allowed slippage for classic trades is either auto slippage, or custom user defined slippage if auto slippage disabled
+  const classicAutoSlippage = useAutoSlippageTolerance(isClassicTrade(trade.trade) ? trade.trade : undefined)
+
+  // slippage for uniswapx trades is defined by the quote response
+  const uniswapXAutoSlippage = isUniswapXTrade(trade.trade) ? trade.trade.slippageTolerance : undefined
+
+  // Uniswap interface recommended slippage amount
+  const autoSlippage = uniswapXAutoSlippage ?? classicAutoSlippage
+  const classicAllowedSlippage = useUserSlippageToleranceWithDefault(autoSlippage)
+
+  // slippage amount used to submit the trade
+  const allowedSlippage = uniswapXAutoSlippage ?? classicAllowedSlippage
 
   const inputError = useMemo(() => {
     let inputError: ReactNode | undefined
@@ -165,14 +196,14 @@ export function useDerivedSwapInfo(
     }
 
     // compare input balance to max input based on version
-    const [balanceIn, amountIn] = [currencyBalances[Field.INPUT], trade.trade?.maximumAmountIn(allowedSlippage)]
+    const [balanceIn, maxAmountIn] = [currencyBalances[Field.INPUT], trade?.trade?.maximumAmountIn(allowedSlippage)]
 
-    if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
-      inputError = <Trans>Insufficient {amountIn.currency.symbol} balance</Trans>
+    if (balanceIn && maxAmountIn && balanceIn.lessThan(maxAmountIn)) {
+      inputError = <Trans>Insufficient {balanceIn.currency.symbol} balance</Trans>
     }
 
     return inputError
-  }, [account, allowedSlippage, currencies, currencyBalances, parsedAmount, to, trade.trade])
+  }, [account, currencies, parsedAmount, to, currencyBalances, trade.trade, allowedSlippage])
 
   return useMemo(
     () => ({

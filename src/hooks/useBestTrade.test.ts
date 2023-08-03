@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react'
 import { CurrencyAmount, TradeType } from '@uniswap/sdk-core'
 import { DAI, USDC_MAINNET } from 'constants/tokens'
-import { RouterPreference } from 'state/routing/slice'
+import { RouterPreference } from 'state/routing/types'
 import { TradeState } from 'state/routing/types'
 import { useRouterPreference } from 'state/user/hooks'
 import { mocked } from 'test-utils/mocked'
@@ -54,7 +54,8 @@ describe('#useBestV3Trade ExactIn', () => {
       USDCAmount,
       DAI,
       RouterPreference.CLIENT,
-      true // skipFetch
+      true, // skipFetch
+      undefined
     )
     expect(useClientSideV3Trade).toHaveBeenCalledWith(TradeType.EXACT_INPUT, USDCAmount, DAI)
     expect(result.current).toEqual({ state: TradeState.VALID, trade: undefined })
@@ -72,7 +73,8 @@ describe('#useBestV3Trade ExactIn', () => {
       USDCAmount,
       DAI,
       RouterPreference.CLIENT,
-      true // skipFetch
+      true, // skipFetch
+      undefined
     )
     expect(result.current).toEqual({ state: TradeState.NO_ROUTE_FOUND, trade: undefined })
   })
@@ -132,7 +134,8 @@ describe('#useBestV3Trade ExactOut', () => {
       DAIAmount,
       USDC_MAINNET,
       RouterPreference.CLIENT,
-      true // skipFetch
+      true, // skipFetch
+      undefined
     )
     expect(useClientSideV3Trade).toHaveBeenCalledWith(TradeType.EXACT_OUTPUT, DAIAmount, USDC_MAINNET)
     expect(result.current).toEqual({ state: TradeState.VALID, trade: undefined })
@@ -150,7 +153,8 @@ describe('#useBestV3Trade ExactOut', () => {
       DAIAmount,
       USDC_MAINNET,
       RouterPreference.CLIENT,
-      true // skipFetch
+      true, // skipFetch
+      undefined
     )
     expect(result.current).toEqual({ state: TradeState.NO_ROUTE_FOUND, trade: undefined })
   })
