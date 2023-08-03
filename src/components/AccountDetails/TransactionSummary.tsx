@@ -6,7 +6,7 @@ import JSBI from 'jsbi'
 import { nativeOnChain } from '../../constants/tokens'
 import { useCurrency, useToken } from '../../hooks/Tokens'
 import useENSName from '../../hooks/useENSName'
-import { VoteOption } from '../../state/governance/types'
+//import { VoteOption } from '../../state/governance/types'
 import {
   AddLiquidityV2PoolTransactionInfo,
   AddLiquidityV3PoolTransactionInfo,
@@ -23,7 +23,7 @@ import {
   RemoveLiquidityV3TransactionInfo,
   TransactionInfo,
   TransactionType,
-  VoteTransactionInfo,
+  // VoteTransactionInfo,
   WrapTransactionInfo,
 } from '../../state/transactions/types'
 
@@ -95,40 +95,40 @@ function ApprovalSummary({ info }: { info: ApproveTransactionInfo }) {
   )
 }
 
-function VoteSummary({ info }: { info: VoteTransactionInfo }) {
-  const proposalKey = `${info.governorAddress}/${info.proposalId}`
-  if (info.reason && info.reason.trim().length > 0) {
-    switch (info.decision) {
-      case VoteOption.For:
-        return <Trans>Vote for proposal {proposalKey}</Trans>
-      case VoteOption.Abstain:
-        return <Trans>Vote to abstain on proposal {proposalKey}</Trans>
-      case VoteOption.Against:
-        return <Trans>Vote against proposal {proposalKey}</Trans>
-    }
-  } else {
-    switch (info.decision) {
-      case VoteOption.For:
-        return (
-          <Trans>
-            Vote for proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-      case VoteOption.Abstain:
-        return (
-          <Trans>
-            Vote to abstain on proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-      case VoteOption.Against:
-        return (
-          <Trans>
-            Vote against proposal {proposalKey} with reason &quot;{info.reason}&quot;
-          </Trans>
-        )
-    }
-  }
-}
+// function VoteSummary({ info }: { info: VoteTransactionInfo }) {
+//   const proposalKey = `${info.governorAddress}/${info.proposalId}`
+//   if (info.reason && info.reason.trim().length > 0) {
+//     switch (info.decision) {
+//       case VoteOption.For:
+//         return <Trans>Vote for proposal {proposalKey}</Trans>
+//       case VoteOption.Abstain:
+//         return <Trans>Vote to abstain on proposal {proposalKey}</Trans>
+//       case VoteOption.Against:
+//         return <Trans>Vote against proposal {proposalKey}</Trans>
+//     }
+//   } else {
+//     switch (info.decision) {
+//       case VoteOption.For:
+//         return (
+//           <Trans>
+//             Vote for proposal {proposalKey} with reason &quot;{info.reason}&quot;
+//           </Trans>
+//         )
+//       case VoteOption.Abstain:
+//         return (
+//           <Trans>
+//             Vote to abstain on proposal {proposalKey} with reason &quot;{info.reason}&quot;
+//           </Trans>
+//         )
+//       case VoteOption.Against:
+//         return (
+//           <Trans>
+//             Vote against proposal {proposalKey} with reason &quot;{info.reason}&quot;
+//           </Trans>
+//         )
+//     }
+//   }
+// }
 
 function QueueSummary({ info }: { info: QueueTransactionInfo }) {
   const proposalKey = `${info.governorAddress}/${info.proposalId}`
@@ -332,8 +332,8 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
     case TransactionType.APPROVAL:
       return <ApprovalSummary info={info} />
 
-    case TransactionType.VOTE:
-      return <VoteSummary info={info} />
+    // case TransactionType.VOTE:
+    //   return <VoteSummary info={info} />
 
     case TransactionType.DELEGATE:
       return <DelegateSummary info={info} />
