@@ -149,8 +149,8 @@ export const AboutFooter = () => {
         <LinkGroup>
           <LinkGroupTitle>App</LinkGroupTitle>
           <TextLink to="/swap">Swap</TextLink>
-          <TextLink to="/tokens">Tokens</TextLink>
-          {!shouldDisableNFTRoutes && <TextLink to="/nfts">NFTs</TextLink>}
+          {/* <TextLink to="/tokens">Tokens</TextLink>
+          {!shouldDisableNFTRoutes && <TextLink to="/nfts">NFTs</TextLink>} */}
           <TextLink to="/pools">Pools</TextLink>
         </LinkGroup>
         <LinkGroup>

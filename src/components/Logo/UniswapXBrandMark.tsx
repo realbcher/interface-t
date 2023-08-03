@@ -7,17 +7,17 @@ type UniswapXBrandMarkProps = Omit<UnswapXRouterLabelProps, 'children' | 'fontWe
   fontWeight?: 'bold'
 }
 
-export default function UniswapXBrandMark({ fontWeight, ...props }: UniswapXBrandMarkProps): JSX.Element {
-  return (
-    <UniswapXRouterLabel {...props}>
-      <ThemedText.BodySecondary
-        fontSize="inherit"
-        {...(fontWeight === 'bold' && {
-          fontWeight: '500',
-        })}
-      >
-        <Trans>UniswapX</Trans>
-      </ThemedText.BodySecondary>
-    </UniswapXRouterLabel>
-  )
-}
+// export default function UniswapXBrandMark({ fontWeight, ...props }: UniswapXBrandMarkProps): JSX.Element {
+//   return (
+//     <UniswapXRouterLabel {...props}>
+//       <ThemedText.BodySecondary
+//         fontSize="inherit"
+//         {...(fontWeight === 'bold' && {
+//           fontWeight: '500',
+//         })}
+//       >
+//         <Trans>UniswapX</Trans>
+//       </ThemedText.BodySecondary>
+//     </UniswapXRouterLabel>
+//   )
+// }

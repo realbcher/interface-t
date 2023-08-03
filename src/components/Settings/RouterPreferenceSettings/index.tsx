@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { useWeb3React } from '@web3-react/core'
 import Column from 'components/Column'
-import UniswapXBrandMark from 'components/Logo/UniswapXBrandMark'
+// import UniswapXBrandMark from 'components/Logo/UniswapXBrandMark'
 import { RowBetween, RowFixed } from 'components/Row'
 import Toggle from 'components/Toggle'
 import { isUniswapXSupportedChain } from 'constants/chains'
@@ -30,7 +30,7 @@ export default function RouterPreferenceSettings() {
 
   return (
     <>
-      {uniswapXEnabled && (
+      {/* {uniswapXEnabled && (
         <>
           <RowBetween gap="sm">
             <RowFixed>
@@ -60,7 +60,7 @@ export default function RouterPreferenceSettings() {
           </RowBetween>
           <Divider />
         </>
-      )}
+      )} */}
       <RowBetween gap="sm">
         <RowFixed>
           <Column gap="xs">

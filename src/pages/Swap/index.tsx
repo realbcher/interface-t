@@ -62,7 +62,7 @@ import { computeRealizedPriceImpact, warningSeverity } from 'utils/prices'
 import { didUserReject } from 'utils/swapErrorToUserReadableMessage'
 
 import { useScreenSize } from '../../hooks/useScreenSize'
-import { UniswapXOptIn } from './UniswapXOptIn'
+// import { UniswapXOptIn } from './UniswapXOptIn'
 
 export const ArrowContainer = styled.div`
   display: inline-flex;
@@ -758,14 +758,14 @@ export function Swap({
           )}
         </div>
       </AutoColumn>
-      {!showOptInSmall && <UniswapXOptIn isSmall={false} swapInfo={swapInfo} />}
+      {/* {!showOptInSmall && <UniswapXOptIn isSmall={false} swapInfo={swapInfo} />} */}
     </SwapWrapper>
   )
 
   return (
     <>
       {swapElement}
-      {showOptInSmall && <UniswapXOptIn isSmall swapInfo={swapInfo} />}
+      {/* {showOptInSmall && <UniswapXOptIn isSmall swapInfo={swapInfo} />} */}
     </>
   )
 }

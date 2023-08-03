@@ -150,7 +150,7 @@ export const MenuDropdown = () => {
                     </PrimaryMenuRow.Text>
                   </PrimaryMenuRow>
                 </Box>
-                <Box
+                {/* <Box
                   onClick={() =>
                     openDownloadApp({
                       element: InterfaceElementName.UNISWAP_WALLET_MODAL_DOWNLOAD_BUTTON,
@@ -165,25 +165,25 @@ export const MenuDropdown = () => {
                       <Trans>Download Uniswap Wallet</Trans>
                     </PrimaryMenuRow.Text>
                   </PrimaryMenuRow>
-                </Box>
-                <PrimaryMenuRow to="/vote" close={toggleOpen}>
+                </Box> */}
+                {/* <PrimaryMenuRow to="/vote" close={toggleOpen}>
                   <Icon>
                     <GovernanceIcon width={24} height={24} color={theme.textPrimary} />
                   </Icon>
                   <PrimaryMenuRow.Text>
                     <Trans>Vote in governance</Trans>
                   </PrimaryMenuRow.Text>
-                </PrimaryMenuRow>
-                <PrimaryMenuRow href="https://info.uniswap.org/#/">
+                </PrimaryMenuRow> */}
+                {/* <PrimaryMenuRow href="https://info.uniswap.org/#/">
                   <Icon>
                     <BarChartIcon width={24} height={24} color={theme.textPrimary} />
                   </Icon>
                   <PrimaryMenuRow.Text>
                     <Trans>View more analytics</Trans>
                   </PrimaryMenuRow.Text>
-                </PrimaryMenuRow>
+                </PrimaryMenuRow> */}
               </Column>
-              <Separator />
+              {/* <Separator /> */}
               <Box
                 display="flex"
                 flexDirection={{ sm: 'row', md: 'column' }}

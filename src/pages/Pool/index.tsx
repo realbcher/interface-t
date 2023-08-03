@@ -220,16 +220,16 @@ export default function Pool() {
   const showConnectAWallet = Boolean(!account)
 
   const menuItems = [
-    {
-      content: (
-        <PoolMenuItem>
-          <Trans>Migrate</Trans>
-          <ChevronsRight size={16} />
-        </PoolMenuItem>
-      ),
-      link: '/migrate/v2',
-      external: false,
-    },
+    // {
+    //   content: (
+    //     <PoolMenuItem>
+    //       <Trans>Migrate</Trans>
+    //       <ChevronsRight size={16} />
+    //     </PoolMenuItem>
+    //   ),
+    //   link: '/migrate/v2',
+    //   external: false,
+    // },
     {
       content: (
         <PoolMenuItem>
