@@ -7,7 +7,6 @@ import { MAIN_CARDS, MORE_CARDS } from 'components/About/constants'
 import ProtocolBanner from 'components/About/ProtocolBanner'
 import { useAccountDrawer } from 'components/AccountDrawer'
 import { BaseButton } from 'components/Button'
-import { AppleLogo } from 'components/Logo/AppleLogo'
 import { useDisableNFTRoutes } from 'hooks/useDisableNFTRoutes'
 import Swap from 'pages/Swap'
 import { RedirectPathToSwapOnly } from 'pages/Swap/redirects'
@@ -22,7 +21,7 @@ import { BREAKPOINTS } from 'theme'
 import { useIsDarkMode } from 'theme/components/ThemeToggle'
 import { TRANSITION_DURATIONS } from 'theme/styles'
 import { Z_INDEX } from 'theme/zIndex'
-import { getDownloadAppLinkProps } from 'utils/openDownloadApp'
+// import { getDownloadAppLinkProps } from 'utils/openDownloadApp'
 
 const PageContainer = styled.div`
   position: absolute;
@@ -48,10 +47,10 @@ const Gradient = styled.div<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(rgba(8, 10, 24, 0) 0%, rgb(8 10 24 / 100%) 45%);
+          background: linear-gradient(rgba(32, 17, 17, 0) 0%, rgb(32 17 17 / 100%) 45%);
         `
       : css`
-          background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255 255 255 /100%) 45%);
+          background: linear-gradient(rgba(32, 17, 17, 0) 0%, rgb(32 17 17 /100%) 45%);
         `};
   z-index: ${Z_INDEX.under_dropdown};
   pointer-events: none;
@@ -80,7 +79,7 @@ const Glow = styled.div`
   position: absolute;
   top: 68px;
   bottom: 0;
-  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #ff37eb 0%, rgba(166, 151, 255, 0) 100%);
+  background: radial-gradient(72.04% 72.04% at 50% 3.99%, #FF3A31 0%, rgba(166, 151, 255, 0) 100%);
   filter: blur(72px);
   border-radius: 24px;
   max-width: 480px;
@@ -117,10 +116,10 @@ const TitleText = styled.h1<{ isDarkMode: boolean }>`
   ${({ isDarkMode }) =>
     isDarkMode
       ? css`
-          background: linear-gradient(20deg, rgba(255, 244, 207, 1) 10%, rgba(255, 87, 218, 1) 100%);
+          background: linear-gradient(20deg, rgba(255, 58, 49, 1) 10%, rgba(255, 58, 49, 1) 100%);
         `
       : css`
-          background: linear-gradient(10deg, rgba(255, 79, 184, 1) 0%, rgba(255, 159, 251, 1) 100%);
+          background: linear-gradient(10deg, rgba(255, 117, 110, 1) 0%, rgba(255, 117, 110, 1) 100%);
         `};
   background-clip: text;
   -webkit-background-clip: text;
@@ -162,13 +161,13 @@ const LandingButton = styled(BaseButton)`
 `
 
 const ButtonCTA = styled(LandingButton)`
-  background: linear-gradient(93.06deg, #ff00c7 2.66%, #ff9ffb 98.99%);
+  background: linear-gradient(93.06deg, #FF3A31 2.66%, #ff756e 98.99%);
   border: none;
   color: ${({ theme }) => theme.white};
   transition: ${({ theme }) => `all ${theme.transition.duration.medium} ${theme.transition.timing.ease}`};
 
   &:hover {
-    box-shadow: 0px 0px 16px 0px #ff00c7;
+    box-shadow: 0px 0px 16px 0px #FF3A31;
   }
 `
 
@@ -189,78 +188,78 @@ const ActionsContainer = styled.span`
   pointer-events: auto;
 `
 
-const LearnMoreContainer = styled.div`
-  align-items: center;
-  color: ${({ theme }) => theme.textTertiary};
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 36px 0;
-  display: flex;
-  visibility: hidden;
-  pointer-events: auto;
-  @media screen and (min-width: ${BREAKPOINTS.sm}px) {
-    visibility: visible;
-  }
+// const LearnMoreContainer = styled.div`
+//   align-items: center;
+//   color: ${({ theme }) => theme.textTertiary};
+//   cursor: pointer;
+//   font-size: 20px;
+//   font-weight: 600;
+//   margin: 36px 0;
+//   display: flex;
+//   visibility: hidden;
+//   pointer-events: auto;
+//   @media screen and (min-width: ${BREAKPOINTS.sm}px) {
+//     visibility: visible;
+//   }
 
-  transition: ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
+//   transition: ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.ease} opacity`};
 
-  &:hover {
-    opacity: 0.6;
-  }
-`
+//   &:hover {
+//     opacity: 0.6;
+//   }
+// `
 
-const LearnMoreArrow = styled(ArrowDownCircle)`
-  margin-left: 14px;
-  size: 20px;
-`
+// const LearnMoreArrow = styled(ArrowDownCircle)`
+//   margin-left: 14px;
+//   size: 20px;
+// `
 
-const AboutContentContainer = styled.div<{ isDarkMode: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 24px 5rem;
-  width: 100%;
-  ${({ isDarkMode }) =>
-    isDarkMode
-      ? css`
-          background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #050026 99.85%);
-        `
-      : css`
-          background: linear-gradient(179.82deg, rgba(255, 255, 255, 0) 0.16%, #eaeaea 99.85%);
-        `};
-  @media screen and (min-width: ${BREAKPOINTS.md}px) {
-    padding: 0 96px 5rem;
-  }
-`
+// const AboutContentContainer = styled.div<{ isDarkMode: boolean }>`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 0 24px 5rem;
+//   width: 100%;
+//   ${({ isDarkMode }) =>
+//     isDarkMode
+//       ? css`
+//           background: linear-gradient(179.82deg, rgba(0, 0, 0, 0) 0.16%, #050026 99.85%);
+//         `
+//       : css`
+//           background: linear-gradient(179.82deg, rgba(255, 255, 255, 0) 0.16%, #eaeaea 99.85%);
+//         `};
+//   @media screen and (min-width: ${BREAKPOINTS.md}px) {
+//     padding: 0 96px 5rem;
+//   }
+// `
 
-const CardGrid = styled.div<{ cols: number }>`
-  display: grid;
-  gap: 12px;
-  width: 100%;
-  padding: 24px 0 0;
-  max-width: 1440px;
-  scroll-margin: ${({ theme }) => `${theme.navHeight}px 0 0`};
+// const CardGrid = styled.div<{ cols: number }>`
+//   display: grid;
+//   gap: 12px;
+//   width: 100%;
+//   padding: 24px 0 0;
+//   max-width: 1440px;
+//   scroll-margin: ${({ theme }) => `${theme.navHeight}px 0 0`};
 
-  grid-template-columns: 1fr;
-  @media screen and (min-width: ${BREAKPOINTS.sm}px) {
-    // At this screen size, we show up to 2 columns.
-    grid-template-columns: ${({ cols }) =>
-      Array.from(Array(cols === 2 ? 2 : 1))
-        .map(() => '1fr')
-        .join(' ')};
-    gap: 32px;
-  }
+//   grid-template-columns: 1fr;
+//   @media screen and (min-width: ${BREAKPOINTS.sm}px) {
+//     // At this screen size, we show up to 2 columns.
+//     grid-template-columns: ${({ cols }) =>
+//       Array.from(Array(cols === 2 ? 2 : 1))
+//         .map(() => '1fr')
+//         .join(' ')};
+//     gap: 32px;
+//   }
 
-  @media screen and (min-width: ${BREAKPOINTS.lg}px) {
-    // at this screen size, always show the max number of columns
-    grid-template-columns: ${({ cols }) =>
-      Array.from(Array(cols))
-        .map(() => '1fr')
-        .join(' ')};
-    gap: 32px;
-  }
-`
+//   @media screen and (min-width: ${BREAKPOINTS.lg}px) {
+//     // at this screen size, always show the max number of columns
+//     grid-template-columns: ${({ cols }) =>
+//       Array.from(Array(cols))
+//         .map(() => '1fr')
+//         .join(' ')};
+//     gap: 32px;
+//   }
+// `
 
 const LandingSwapContainer = styled.div`
   height: ${({ theme }) => `calc(100vh - ${theme.mobileBottomBarHeight}px)`};
@@ -301,13 +300,13 @@ const Link = styled(NativeLink)`
 
 export default function Landing() {
   const isDarkMode = useIsDarkMode()
-  const cardsRef = useRef<HTMLDivElement>(null)
+  // const cardsRef = useRef<HTMLDivElement>(null)
   const selectedWallet = useAppSelector((state) => state.user.selectedWallet)
   const shouldDisableNFTRoutes = useDisableNFTRoutes()
-  const cards = useMemo(
-    () => MAIN_CARDS.filter((card) => !(shouldDisableNFTRoutes && card.to.startsWith('/nft'))),
-    [shouldDisableNFTRoutes]
-  )
+  // const cards = useMemo(
+  //   () => MAIN_CARDS.filter((card) => !(shouldDisableNFTRoutes && card.to.startsWith('/nft'))),
+  //   [shouldDisableNFTRoutes]
+  // )
 
   const [accountDrawerOpen] = useAccountDrawer()
   const navigate = useNavigate()
@@ -345,9 +344,9 @@ export default function Landing() {
         <ContentContainer isDarkMode={isDarkMode}>
           <TitleText isDarkMode={isDarkMode}>
             {shouldDisableNFTRoutes ? (
-              <Trans>Trade crypto with confidence</Trans>
+              <Trans>Trade tokens with confidence</Trans>
             ) : (
-              <Trans>Trade crypto and NFTs with confidence</Trans>
+              <Trans>Trade tokens with confidence</Trans>
             )}
           </TitleText>
           <SubTextContainer>
@@ -355,7 +354,7 @@ export default function Landing() {
               {shouldDisableNFTRoutes ? (
                 <Trans>Buy, sell, and explore tokens</Trans>
               ) : (
-                <Trans>Buy, sell, and explore tokens and NFTs</Trans>
+                <Trans>Buy, sell, and explore tokens</Trans>
               )}
             </SubText>
           </SubTextContainer>
@@ -372,16 +371,16 @@ export default function Landing() {
               </ButtonCTA>
             </TraceEvent>
           </ActionsContainer>
-          <LearnMoreContainer
+          {/* <LearnMoreContainer
             onClick={() => {
               cardsRef?.current?.scrollIntoView({ behavior: 'smooth' })
             }}
           >
             <Trans>Learn more</Trans>
             <LearnMoreArrow />
-          </LearnMoreContainer>
+          </LearnMoreContainer> */}
 
-          <DownloadWalletLink
+          {/* <DownloadWalletLink
             {...getDownloadAppLinkProps({
               // landing page specific tracking params
               microSiteParams: `utm_source=home_page&utm_medium=webapp&utm_campaign=wallet_microsite&utm_id=1`,
@@ -390,9 +389,9 @@ export default function Landing() {
           >
             <AppleLogo width="20" height="20" />
             Download the Uniswap Wallet for iOS
-          </DownloadWalletLink>
+          </DownloadWalletLink> */}
         </ContentContainer>
-        <AboutContentContainer isDarkMode={isDarkMode}>
+        {/* <AboutContentContainer isDarkMode={isDarkMode}>
           <CardGrid cols={cards.length} ref={cardsRef}>
             {cards.map(({ darkBackgroundImgSrc, lightBackgroundImgSrc, ...card }) => (
               <Card
@@ -409,23 +408,23 @@ export default function Landing() {
           </CardGrid>
           <ProtocolBanner />
           <AboutFooter />
-        </AboutContentContainer>
+        </AboutContentContainer> */}
       </PageContainer>
     </Trace>
   )
 }
 
-const DownloadWalletLink = styled.a`
-  display: inline-flex;
-  gap: 8px;
-  color: ${({ theme }) => theme.textSecondary};
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 500;
-  text-align: center;
+// const DownloadWalletLink = styled.a`
+//   display: inline-flex;
+//   gap: 8px;
+//   color: ${({ theme }) => theme.textSecondary};
+//   text-decoration: none;
+//   font-size: 16px;
+//   line-height: 24px;
+//   font-weight: 500;
+//   text-align: center;
 
-  :hover {
-    color: ${({ theme }) => theme.textTertiary};
-  }
-`
+//   :hover {
+//     color: ${({ theme }) => theme.textTertiary};
+//   }
+// `
