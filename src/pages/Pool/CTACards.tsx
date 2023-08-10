@@ -9,7 +9,7 @@ import { ExternalLink } from '../../theme'
 
 const CTASection = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 8px;
   opacity: 0.8;
 
@@ -74,7 +74,7 @@ export default function CTACards() {
           <HeaderText>
             <Trans>Learn about providing liquidity</Trans> ↗
           </HeaderText>
-          <ThemedText.DeprecatedBody fontWeight={400} style={{ alignItems: 'center', display: 'flex' }}>
+          <ThemedText.DeprecatedBody  fontWeight={400} style={{ alignItems: 'center', display: 'flex' }}>
             <Trans>Check out our v3 LP walkthrough and migration guides.</Trans>
           </ThemedText.DeprecatedBody>
         </ResponsiveColumn>
